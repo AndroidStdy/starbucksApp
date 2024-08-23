@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import fastcampus.part2.starbucksapp.databinding.FragmentOrderBinding
+import kotlin.math.abs
 
 class OrderFragment:Fragment(R.layout.fragment_order) {
 
@@ -22,7 +23,12 @@ class OrderFragment:Fragment(R.layout.fragment_order) {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = menuAdapter
+        }
+        binding.appbarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
 
+            val seekPosition = abs(verticalOffset) / appBarLayout.totalScrollRange.toFloat()
+            binding.motionLayout.progress = seekPosition
+            
         }
     }
 }
